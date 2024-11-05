@@ -25,10 +25,18 @@ impl TemplateApp {
         // This is also where you can customize the look and feel of egui using
         // `cc.egui_ctx.set_visuals` and `cc.egui_ctx.set_fonts`.
 
+        // get the crate name
+        let crate_name = env!("CARGO_PKG_NAME");
+
+        // concat together with eframe::APP_KEY
+        let app_key = format!("{}-{}", eframe::APP_KEY, crate_name);
+
+        eprintln!("app_key: {}", app_key);
+
         // Load previous app state (if any).
         // Note that you must enable the `persistence` feature for this to work.
         if let Some(storage) = cc.storage {
-            return eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default();
+            return eframe::get_value(storage, &app_key).unwrap_or_default();
         }
 
         Default::default()
