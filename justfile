@@ -10,4 +10,18 @@ release-tag:
   git tag -a v{{version}} -m "Release version {{version}}"
   git push origin v{{version}}
 
+web-dev:
+  # trunk serve --open
+  cargo watch -c -q -x 'trunk serve --open'
 
+native-dev:
+  cargo run
+
+# -c: Clears the screen before each run
+# -q: Suppresses output from cargo watch itself
+watch-dev:
+  cargo watch -c -q -x 'run'
+
+# Simultaneously run the web and native development environments.
+dev:
+  just watch-dev & just web-dev
