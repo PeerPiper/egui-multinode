@@ -1,6 +1,6 @@
 on: [push, pull_request, workflow_dispatch]
 
-name: CI
+name: CI Rust builds
 
 env:
   RUSTFLAGS: -D warnings
