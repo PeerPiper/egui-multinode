@@ -1,1 +1,2 @@
-[build]
+[serve]
+port = 8090
