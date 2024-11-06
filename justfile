@@ -11,8 +11,7 @@ release-tag:
   git push origin v{{version}}
 
 web-dev:
-  # trunk serve --open
-  cargo watch -c -q -x 'trunk serve --open'
+  trunk serve --open
 
 native-dev:
   cargo run
@@ -23,5 +22,16 @@ watch-dev:
   cargo watch -c -q -x 'run'
 
 # Simultaneously run the web and native development environments.
-dev:
+dev: 
   just watch-dev & just web-dev
+
+update-remote:
+  git submodule update --recursive --remote
+
+# build the ./crates/submodules/peerpiper/crates/peerpiper-server into a binary 
+# and copy it to the ./bin directory 
+build-peerpiper: update-remote
+  cargo build --release --manifest-path ./crates/submodules/peerpiper/crates/peerpiper-server/Cargo.toml
+  cp ./crates/submodules/peerpiper/target/release/peerpiper-server ./bin/peerpiper-server
+
+
