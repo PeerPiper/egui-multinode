@@ -4,7 +4,7 @@ version = "0.1.1"
 authors = ["Doug Anderson <doug@peerpiper.io>"]
 edition = "2021"
 include = ["LICENSE-APACHE", "LICENSE-MIT", "**/*.rs", "Cargo.toml"]
-rust-version = "1.76"
+rust-version = "1.78"
 
 [package.metadata.docs.rs]
 all-features = true
@@ -23,14 +23,19 @@ log = "0.4"
 # You only need serde if you want app persistence:
 serde = { version = "1", features = ["derive"] }
 
+# logging 
+tracing = "0.1"
+
 # native:
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-env_logger = "0.11"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
 # web:
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wasm-bindgen-futures = "0.4"
-web-sys = "0.3.70"           # to access the DOM (to hide the loading text)
+web-sys = "0.3.70"                       # to access the DOM (to hide the loading text)
+tracing-subscriber = { version = "0.3" }
+tracing-wasm = { version = "0.2.1" }
 
 [profile.release]
 opt-level = 2            # fast and small wasm
