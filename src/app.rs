@@ -1,14 +1,8 @@
+mod platform;
 mod style;
 
-#[cfg(not(target_arch = "wasm32"))]
-mod native;
-#[cfg(not(target_arch = "wasm32"))]
-use native as platform;
-
-#[cfg(target_arch = "wasm32")]
-mod web;
-#[cfg(target_arch = "wasm32")]
-use web as platform;
+use eframe::glow::Context;
+use platform::{Platform, PlatformEnum};
 
 const IS_WEB: bool = cfg!(target_arch = "wasm32");
 
@@ -21,12 +15,18 @@ pub struct TemplateApp {
 
     #[serde(skip)] // This how you opt-out of serialization of a field
     value: f32,
+
+    // Platform specific fields
+    #[serde(skip)]
+    /// Any platform that impls both [platform::PlatformTrait] and [Default]
+    platform: PlatformEnum,
 }
 
 impl Default for TemplateApp {
     fn default() -> Self {
         Self {
-            label: "localhost:8080".to_owned(),
+            platform: Default::default(),
+            label: "/dnsaddr/peerpiper.io/".to_owned(),
             value: 2.7,
         }
     }
@@ -60,6 +60,12 @@ impl eframe::App for TemplateApp {
     /// Called by the frame work to save state before shutdown.
     fn save(&mut self, storage: &mut dyn eframe::Storage) {
         eframe::set_value(storage, eframe::APP_KEY, self);
+    }
+
+    /// Kill server on exit
+    fn on_exit(&mut self, _gl: Option<&Context>) {
+        // drop the platform to Kill the server process
+        self.platform.close();
     }
 
     /// Called each time the UI needs repainting, which may be many times per second.

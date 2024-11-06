@@ -1,5 +1,12 @@
 use super::*;
 
+#[derive(Default)]
+pub(crate) struct Platform;
+
+impl Platform {
+    pub(crate) fn close(&mut self) {}
+}
+
 pub(crate) fn show(this: &mut super::TemplateApp, ui: &mut egui::Ui) {
     ui.horizontal(|ui| {
         ui.label("Connect to multinode: ");
