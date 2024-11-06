@@ -1,0 +1,3 @@
+[submodule "crates/submodules/peerpiper"]
+	path = crates/submodules/peerpiper
+	url = https://github.com/PeerPiper/peerpiper.git
