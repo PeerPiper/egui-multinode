@@ -19,7 +19,7 @@ pub struct TemplateApp {
     // Platform specific fields
     #[serde(skip)]
     /// Any platform that impls both [platform::PlatformTrait] and [Default]
-    platform: PlatformEnum,
+    platform: Platform,
 }
 
 impl Default for TemplateApp {
@@ -70,8 +70,10 @@ impl eframe::App for TemplateApp {
 
     /// Called each time the UI needs repainting, which may be many times per second.
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        // Put your widgets into a `SidePanel`, `TopBottomPanel`, `CentralPanel`, `Window` or `Area`.
-        // For inspiration and more examples, go to https://emilk.github.io/egui
+        // pass the ctx to the platform
+        if !self.platform.egui_ctx() {
+            self.platform.set_egui_ctx(ctx.clone());
+        }
 
         // set the style
         style::style(ctx);
@@ -93,19 +95,7 @@ impl eframe::App for TemplateApp {
             });
         });
 
-        egui::CentralPanel::default().show(ctx, |ui| {
-            // The central panel the region left after adding TopPanel's and SidePanel's
-            ui.heading("PeerPiper Multinode");
-
-            platform::show(self, ui);
-
-            ui.add(egui::Slider::new(&mut self.value, 0.0..=10.0).text("value"));
-            if ui.button("Increment").clicked() {
-                self.value += 1.0;
-            }
-
-            ui.separator();
-
+        egui::TopBottomPanel::bottom("footer").show(ctx, |ui| {
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 powered_by_egui_and_eframe(ui);
                 ui.add(egui::github_link_file!(
@@ -114,6 +104,23 @@ impl eframe::App for TemplateApp {
                 ));
                 egui::warn_if_debug_build(ui);
             });
+        });
+
+        egui::CentralPanel::default().show(ctx, |ui| {
+            // The central panel the region left after adding TopPanel's and SidePanel's
+            ui.heading("PeerPiper Multinode");
+
+            ui.vertical(|ui| {
+                platform::show(self, ui);
+                self.platform.show(ctx, ui);
+            });
+
+            ui.add(egui::Slider::new(&mut self.value, 0.0..=10.0).text("value"));
+            if ui.button("Increment").clicked() {
+                self.value += 1.0;
+            }
+
+            ui.separator();
         });
     }
 }

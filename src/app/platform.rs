@@ -44,6 +44,16 @@ impl PlatformEnum {
             Self::Web(platform) => platform.close(),
         }
     }
+
+    /// Show
+    pub fn show(&mut self, ctx: &egui::Context, ui: &mut egui::Ui) {
+        match self {
+            #[cfg(not(target_arch = "wasm32"))]
+            Self::Native(platform) => platform.show(ctx, ui),
+            #[cfg(target_arch = "wasm32")]
+            Self::Web(platform) => platform.show(ui),
+        }
+    }
 }
 
 pub(crate) fn show(this: &mut super::TemplateApp, ui: &mut egui::Ui) {

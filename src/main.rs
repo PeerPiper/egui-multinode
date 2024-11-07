@@ -5,7 +5,7 @@
 #[cfg(not(target_arch = "wasm32"))]
 fn main() -> eframe::Result {
     let _ = tracing_subscriber::fmt()
-        .with_env_filter("debug")
+        .with_env_filter("egui_multinode=info,peerpiper_server=debug,eframe=off")
         .try_init();
 
     let native_options = eframe::NativeOptions {
