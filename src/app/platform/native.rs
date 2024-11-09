@@ -23,8 +23,6 @@ pub(crate) struct Platform {
     // This is where you would put platform-specific fields
     server_process: Option<Child>,
 
-    inbox: std::sync::mpsc::Receiver<String>,
-
     log: Arc<Mutex<Vec<String>>>,
 
     /// Clone of the [egui::Context] so that the platform can trigger repaints
@@ -66,8 +64,6 @@ impl Default for Platform {
 
         // Set up a sync channel to control the child process, mainly to kill() it when eframe exits
         let (tx_control, rx_control) = std::sync::mpsc::channel();
-
-        let (outbox, inbox) = std::sync::mpsc::channel();
 
         let rt = tokio::runtime::Builder::new_current_thread()
             .enable_all()
@@ -199,7 +195,6 @@ impl Default for Platform {
 
         Self {
             server_process: Some(server_process),
-            inbox,
             log,
             ctx,
         }
@@ -257,28 +252,20 @@ impl Platform {
 
     /// Platform specific UI to show
     pub(crate) fn show(&mut self, ctx: &egui::Context, ui: &mut egui::Ui) {
-        // label for Log
-        ui.separator();
-        ui.label("Log:");
-
-        // SCROLLABLE SECTION for the log
-        egui::ScrollArea::vertical().show(ui, |ui| {
-            ui.vertical(|ui| {
-                for line in self.log.lock().unwrap().iter().rev() {
-                    ui.label(line);
-                }
+        // Bottom Up inner panel
+        egui::TopBottomPanel::bottom("log")
+            .resizable(true)
+            .show_inside(ui, |ui| {
+                ui.collapsing("Node Log", |ui| {
+                    // SCROLLABLE SECTION for the log
+                    egui::ScrollArea::vertical().show(ui, |ui| {
+                        ui.vertical(|ui| {
+                            for line in self.log.lock().unwrap().iter().rev() {
+                                ui.label(line);
+                            }
+                        });
+                    });
+                });
             });
-        });
-
-        ui.separator();
     }
-}
-
-pub(crate) fn show(this: &mut super::TemplateApp, ui: &mut egui::Ui) {
-    // Show "Launching Local node" status
-    ui.horizontal(|ui| {
-        ui.label("Launching Local node: ");
-        let text_edit = egui::TextEdit::singleline(&mut this.label).margin(egui::vec2(10.0, 5.0));
-        ui.add(text_edit);
-    });
 }

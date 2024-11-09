@@ -55,7 +55,3 @@ impl PlatformEnum {
         }
     }
 }
-
-pub(crate) fn show(this: &mut super::TemplateApp, ui: &mut egui::Ui) {
-    platform::show(this, ui);
-}
