@@ -6,7 +6,7 @@
 pub(crate) fn style(ctx: &egui::Context) {
     ctx.style_mut(|style| {
         // Increase padding for all widgets
-        style.spacing.item_spacing = egui::vec2(10.0, 10.0);
+        // style.spacing.item_spacing = egui::vec2(10.0, 10.0);
 
         // Increase padding specifically for buttons
         style.spacing.button_padding = egui::vec2(10.0, 5.0);
@@ -34,4 +34,12 @@ pub(crate) fn style(ctx: &egui::Context) {
         //     ),
         // ]);
     });
+}
+
+/// Detect narrow screens.
+///
+/// This is used to show a simpler UI on mobile devices, especially for the web
+pub fn is_mobile(ctx: &egui::Context) -> bool {
+    let screen_size = ctx.screen_rect().size();
+    screen_size.x < 550.0
 }
