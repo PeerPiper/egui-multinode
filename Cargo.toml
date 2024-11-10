@@ -29,7 +29,7 @@ serde = { version = "1", features = ["derive"] }
 tracing = "0.1"
 
 seed-keeper-core = { git = "https://github.com/DougAnderson444/seed-keeper.git" }
-peerpiper-plugins = { git = "https://github.com/DougAnderson444/peerpiper.git" }
+peerpiper-plugins = { git = "https://github.com/PeerPiper/peerpiper.git" }
 
 rfd = "0.13" # Rust File Dialog 
 

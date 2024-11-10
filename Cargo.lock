@@ -5080,6 +5080,7 @@ checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
 [[package]]
 name = "peerpiper"
 version = "0.1.0"
+source = "git+https://github.com/PeerPiper/peerpiper.git#da99e8347abafaf77a9c30d2a68e4c52b4e9f071"
 dependencies = [
  "cfg-if",
  "futures",
@@ -5094,6 +5095,7 @@ dependencies = [
 [[package]]
 name = "peerpiper-browser"
 version = "0.1.8"
+source = "git+https://github.com/PeerPiper/peerpiper.git#da99e8347abafaf77a9c30d2a68e4c52b4e9f071"
 dependencies = [
  "anyhow",
  "bytes",
@@ -5125,6 +5127,7 @@ dependencies = [
 [[package]]
 name = "peerpiper-core"
 version = "0.1.1"
+source = "git+https://github.com/PeerPiper/peerpiper.git#da99e8347abafaf77a9c30d2a68e4c52b4e9f071"
 dependencies = [
  "base64 0.20.0",
  "futures",
@@ -5145,6 +5148,7 @@ dependencies = [
 [[package]]
 name = "peerpiper-native"
 version = "0.1.0"
+source = "git+https://github.com/PeerPiper/peerpiper.git#da99e8347abafaf77a9c30d2a68e4c52b4e9f071"
 dependencies = [
  "futures",
  "libp2p",
@@ -5159,6 +5163,7 @@ dependencies = [
 [[package]]
 name = "peerpiper-plugins"
 version = "0.1.0"
+source = "git+https://github.com/PeerPiper/peerpiper.git#da99e8347abafaf77a9c30d2a68e4c52b4e9f071"
 dependencies = [
  "anyhow",
  "async-trait",
