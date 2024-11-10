@@ -116,7 +116,7 @@ impl TemplateApp {
                 });
 
                 ui.separator();
-                self.state.backend_panel.ui(ui, frame, &mut self.platform);
+                self.state.backend_panel.ui(ui, frame, &self.platform);
             });
     }
 }
