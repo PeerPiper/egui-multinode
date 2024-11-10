@@ -1895,7 +1895,9 @@ dependencies = [
  "egui",
  "egui_form",
  "garde",
+ "getrandom",
  "log",
+ "multinode-web",
  "peerpiper-plugins",
  "rfd",
  "seed-keeper-core",
@@ -4398,6 +4400,17 @@ dependencies = [
  "quote",
  "syn 2.0.87",
  "synstructure 0.13.1",
+]
+
+[[package]]
+name = "multinode-web"
+version = "0.1.0"
+dependencies = [
+ "eframe",
+ "egui",
+ "serde",
+ "tracing",
+ "web-sys",
 ]
 
 [[package]]

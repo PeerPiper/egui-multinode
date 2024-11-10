@@ -35,6 +35,7 @@ impl ContextSet {
     }
 }
 
+#[derive(Clone)]
 pub(crate) struct Platform {
     log: Arc<Mutex<Vec<String>>>,
 
@@ -82,7 +83,7 @@ impl Drop for Platform {
 
 impl Platform {
     /// Load a plugin into the Platform
-    pub fn load_plugin(&mut self, name: String, wasm: Vec<u8>) {
+    pub fn load_plugin(&self, name: String, wasm: Vec<u8>) {
         // call self.loader.load_plugin(name, wasm).await from this sync function using tokio
         let mut loader = self.loader.clone();
         tokio::task::spawn(async move {

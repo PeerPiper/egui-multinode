@@ -1,6 +1,6 @@
 //! Backend panel module
 
-use super::Platform;
+use super::platform::Platform;
 
 // mod login;
 mod password;
@@ -33,7 +33,7 @@ impl Default for BackendPanel {
 }
 
 impl BackendPanel {
-    pub fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame, platform: &mut Platform) {
+    pub fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame, platform: &Platform) {
         ui.horizontal(|ui| {
             ui.vertical(|ui| {
                 ui.label("Unlock Wallet");
@@ -49,7 +49,13 @@ impl BackendPanel {
         ui.separator();
 
         ui.label("Node");
-        self.file_dialog.file_dialog(ui, platform);
+        let platform_clone = platform.clone();
+        let on_load_callback = move |name, bytes| {
+            platform_clone.load_plugin(name, bytes);
+        };
+        if let Err(e) = self.file_dialog.file_dialog(ui, on_load_callback) {
+            tracing::error!("Failed to open file dialog: {:?}", e);
+        }
         ui.separator();
 
         ui.label("Peers");

@@ -1,6 +1,9 @@
 mod backend_panel;
+pub mod error;
 mod platform;
 mod style;
+
+pub use error::Error;
 
 use backend_panel::BackendPanel;
 use eframe::glow::Context;
