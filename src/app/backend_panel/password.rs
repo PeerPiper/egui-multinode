@@ -60,7 +60,3 @@ pub fn password_ui(ui: &mut egui::Ui, password: &mut String) -> egui::Response {
 pub fn password(password: &mut String) -> impl egui::Widget + '_ {
     move |ui: &mut egui::Ui| password_ui(ui, password)
 }
-
-pub fn url_to_file_source_code() -> String {
-    format!("https://github.com/emilk/egui/blob/master/{}", file!())
-}

@@ -1,7 +1,4 @@
-use eframe::{
-    egui,
-    epaint::text::{FontInsert, InsertFontFamily},
-};
+use eframe::egui;
 
 /**/
 // ctx.style_mut(|style| {
@@ -14,7 +11,8 @@ use eframe::{
 //     ]);
 // });
 
-pub(crate) fn fonts(ctx: &egui::Context) {
+#[allow(dead_code)]
+pub fn fonts(ctx: &egui::Context) {
     let mut fonts = egui::FontDefinitions::default();
 
     let font = include_bytes!("./app/fonts/HackNerdFont-Regular.ttf");

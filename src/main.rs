@@ -3,9 +3,10 @@
 
 // When compiling natively:
 #[cfg(not(target_arch = "wasm32"))]
-fn main() -> eframe::Result {
+#[tokio::main]
+pub async fn main() -> eframe::Result {
     let _ = tracing_subscriber::fmt()
-        .with_env_filter("egui_multinode=info,peerpiper_server=debug,eframe=off")
+        .with_env_filter("info,egui_multinode=info,eframe=off")
         .try_init();
 
     let native_options = eframe::NativeOptions {

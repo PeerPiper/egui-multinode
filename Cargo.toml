@@ -29,6 +29,9 @@ serde = { version = "1", features = ["derive"] }
 tracing = "0.1"
 
 seed-keeper-core = { git = "https://github.com/DougAnderson444/seed-keeper.git" }
+peerpiper-plugins = { path = "../peerpiper/crates/peerpiper-plugins" }
+
+rfd = "0.13" # Rust File Dialog 
 
 # native:
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]

@@ -1,8 +1,11 @@
 //! Backend panel module
 
-mod login;
+use super::Platform;
+
+// mod login;
 mod password;
-mod unlock;
+// mod unlock;
+mod file_dialog;
 
 /// Backend panel state
 #[derive(serde::Deserialize, serde::Serialize)]
@@ -11,24 +14,26 @@ pub struct BackendPanel {
     /// Whether the panel is open
     pub open: bool,
 
-    /// The unlocking credential
-    creds: unlock::Credentials,
-
+    // /// The unlocking credential
+    // creds: unlock::Credentials,
     password: String,
+
+    file_dialog: file_dialog::FileDialog,
 }
 
 impl Default for BackendPanel {
     fn default() -> Self {
         Self {
             open: false,
-            creds: unlock::Credentials::default(),
+            // creds: unlock::Credentials::default(),
             password: "default password".to_string(),
+            file_dialog: file_dialog::FileDialog::default(),
         }
     }
 }
 
 impl BackendPanel {
-    pub fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
+    pub fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame, platform: &mut Platform) {
         ui.horizontal(|ui| {
             ui.vertical(|ui| {
                 ui.label("Unlock Wallet");
@@ -44,6 +49,7 @@ impl BackendPanel {
         ui.separator();
 
         ui.label("Node");
+        self.file_dialog.file_dialog(ui, platform);
         ui.separator();
 
         ui.label("Peers");

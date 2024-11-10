@@ -4,7 +4,7 @@ mod style;
 
 use backend_panel::BackendPanel;
 use eframe::glow::Context;
-use platform::Platform;
+pub(crate) use platform::Platform;
 use style::is_mobile;
 
 const IS_WEB: bool = cfg!(target_arch = "wasm32");
@@ -75,7 +75,7 @@ impl TemplateApp {
     }
 
     /// Contents of the Top Bar
-    fn bar_contents(&mut self, ctx: &egui::Context, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
+    fn bar_contents(&mut self, ctx: &egui::Context, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
         egui::widgets::global_theme_preference_switch(ui);
 
         if is_mobile(ui.ctx()) {
@@ -105,7 +105,7 @@ impl TemplateApp {
             self.state.backend_panel.open || ctx.memory(|mem| mem.everything_is_visible());
 
         egui::SidePanel::left("backend_panel")
-            .resizable(false)
+            .resizable(true)
             .show_animated(ctx, is_open, |ui| {
                 ui.add_space(4.0);
                 ui.vertical_centered(|ui| {
@@ -113,7 +113,7 @@ impl TemplateApp {
                 });
 
                 ui.separator();
-                self.state.backend_panel.ui(ui, frame);
+                self.state.backend_panel.ui(ui, frame, &mut self.platform);
             });
     }
 }
