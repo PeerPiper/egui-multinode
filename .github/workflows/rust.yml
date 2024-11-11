@@ -115,8 +115,9 @@ jobs:
         - os: ubuntu-latest
           TARGET: aarch64-unknown-linux-gnu
 
-        - os: ubuntu-latest
-          TARGET: armv7-unknown-linux-gnueabihf
+        # wasmtime doesn't support armv7
+        # - os: ubuntu-latest
+        #   TARGET: armv7-unknown-linux-gnueabihf
 
         - os: ubuntu-latest
           TARGET: x86_64-unknown-linux-gnu
