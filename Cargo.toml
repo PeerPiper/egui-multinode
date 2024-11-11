@@ -59,16 +59,16 @@ tracing-wasm = { version = "0.2.1" }
 getrandom = { version = "0.2", features = ["js"] }
 
 [profile.release]
-opt-level = 2            # fast and small wasm
-lto = true               # Link Time Optimization
-codegen-units = 1        # allow for maximum size reduction optimizations
-strip = true             # Automatically strip symbols from the binary.
-panic = 'abort'          # Abort on panic
-debug = false
-debug-assertions = false
-overflow-checks = false
-incremental = false
-rpath = false
+opt-level = 2 # fast and small wasm
+# lto = true               # Link Time Optimization
+# codegen-units = 1        # allow for maximum size reduction optimizations
+# strip = true             # Automatically strip symbols from the binary.
+# panic = 'abort'          # Abort on panic
+# debug = false
+# debug-assertions = false
+# overflow-checks = false
+# incremental = false
+# rpath = false
 
 
 # Optimize all dependencies even in debug builds:
@@ -79,8 +79,8 @@ opt-level = 2
 [patch.crates-io]
 
 # If you want to use the bleeding edge version of egui and eframe:
-egui = { git = "https://github.com/emilk/egui", branch = "master" }
-eframe = { git = "https://github.com/emilk/egui", branch = "master" }
+# egui = { git = "https://github.com/emilk/egui", branch = "master" }
+# eframe = { git = "https://github.com/emilk/egui", branch = "master" }
 
 # If you fork https://github.com/emilk/egui you can test with:
 # egui = { path = "../egui/crates/egui" }
