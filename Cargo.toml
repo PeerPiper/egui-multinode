@@ -19,7 +19,7 @@ version = "0.1.1"
 authors = ["Doug Anderson <doug@peerpiper.io>"]
 edition = "2021"
 include = ["LICENSE-APACHE", "LICENSE-MIT", "**/*.rs", "Cargo.toml"]
-rust-version = "1.78"
+rust-version = "1.80"
 
 [package.metadata.docs.rs]
 all-features = true
@@ -28,8 +28,6 @@ targets = ["x86_64-unknown-linux-gnu", "wasm32-unknown-unknown"]
 [dependencies]
 egui = { workspace = true }
 eframe = { workspace = true }
-egui_form = { version = "0.3.0", features = ["validator_garde"] }
-garde = { version = "0.20.0", features = ["email", "derive"] }
 log = "0.4"
 
 # You only need serde if you want app persistence:
@@ -37,9 +35,6 @@ serde = { version = "1", features = ["derive"], workspace = true }
 
 # logging 
 tracing = { workspace = true }
-
-seed-keeper-core = { git = "https://github.com/DougAnderson444/seed-keeper.git" }
-
 
 # native:
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
